@@ -58,7 +58,7 @@ experiment:
 
 ## Typical Workflow
 
-1. Run `researchclaw run ...` with a config that sets `llm.provider` to
+1. Run `only-codex-research run ...` with a config that sets `llm.provider` to
    `supervisor`. A safe starter config is `config.only_codex.example.yaml`.
 2. Inspect pending requests:
 

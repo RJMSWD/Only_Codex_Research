@@ -2,30 +2,17 @@
 
 [English](../README.md) | 简体中文
 
-这是一个面向 Codex 的端到端自动科研仓库，目标是把“一个研究想法”推进成“可提交论文”。
+面向 Codex 的科研自动化仓库，用于把研究想法推进成可投稿论文。
 
-这个仓库脱胎于 `AutoResearchClaw`。核心流水线、阶段结构和执行框架继承自原项目，但默认使用方式已经改变：
+Only_Codex_Research 基于 `AutoResearchClaw` 的流水线架构继续发展，但对外工作方式已经调整为 Codex 优先：Codex 先学习仓库结构与代理分工，再通过 `supervisor` 模式推进整条论文流水线。
 
-- 这个仓库默认由 Codex 充当总指挥。
-- 不再要求 OpenClaw 作为顶层调度器。
-- 不再把 ACP 作为默认主通道。
-- 推荐路径是：登录你自己的 Codex 账号，让 Codex 先学习这个仓库，再由 Codex 按照 `supervisor` 模式调度子智能体完成论文全流程。
+## 项目特点
 
-## 与原项目的关键不同
-
-- Codex 是默认编排器。
-- 子智能体要怎么建、负责什么、推理强度建议是什么，都写在 [AGENTS.md](../AGENTS.md)。
-- 开箱即用配置是 [config.only_codex.example.yaml](../config.only_codex.example.yaml)。
-- 默认 LLM provider 是 `supervisor`，通过本地文件交换请求/响应，而不是依赖 ACP 或远程 API key。
-
-## 公开仓库安全策略
-
-这个可公开推送的仓库已经排除了以下内容：
-
-- 本地 API key
-- 机器专属 Python 路径
-- 实验产物、缓存、检查点和运行痕迹
-- 本地专用配置，例如 `config*.local.yaml`
+- 以 Codex 作为默认编排核心
+- 在 [AGENTS.md](../AGENTS.md) 中明确给出子智能体拓扑与职责
+- 提供安全的起始配置 [config.only_codex.example.yaml](../config.only_codex.example.yaml)
+- 默认使用基于文件交换的 `supervisor` LLM 后端
+- 覆盖文献调研、实现、实验、写作与内部审稿的端到端阶段
 
 ## 快速开始
 
@@ -36,46 +23,49 @@ pip install -e .
 cp config.only_codex.example.yaml config.local.yaml
 ```
 
-然后在 Codex 里打开这个仓库，直接给它一个类似下面的提示：
+建议的启动提示词：
 
 ```text
 先阅读 AGENTS.md 和 config.only_codex.example.yaml。
-使用 Codex 作为顶层编排器。
-只在必要时创建推荐的子智能体。
-除非缺少外部关键信息，否则不要打断我提问。
-然后先做 validate 和 doctor，再以这个主题启动端到端论文流程：<你的主题>。
+你作为 lead orchestrator。
+默认使用 supervisor 模式。
+只在必要时创建 AGENTS.md 中定义的子智能体。
+所有结论都必须有证据支撑。
+先执行 validate 和 doctor，再围绕这个主题启动端到端论文流程：<你的主题>。
 ```
+
+第一次正式运行前，请先把 `config.local.yaml` 中的 `experiment.sandbox.python_path` 改成当前环境里可执行的 Python 解释器路径。
 
 常用命令：
 
 ```bash
-researchclaw validate --config config.local.yaml --no-check-paths
-researchclaw doctor --config config.local.yaml
-researchclaw run --config config.local.yaml --topic "你的研究主题" --auto-approve
+only-codex-research validate --config config.local.yaml --no-check-paths
+only-codex-research doctor --config config.local.yaml
+only-codex-research run --config config.local.yaml --topic "你的研究主题" --auto-approve
 ```
 
-## Codex 默认工作流
+## 工作方式
 
-1. Codex 先读 [AGENTS.md](../AGENTS.md)，理解默认多智能体拓扑。
+1. Codex 先阅读 [AGENTS.md](../AGENTS.md)，理解默认角色分工。
 2. Codex 使用 [config.only_codex.example.yaml](../config.only_codex.example.yaml) 作为起始配置。
-3. 主流程把请求写入 `.researchclaw-supervisor/requests/`。
-4. Codex 和子智能体生成响应，写回 `.researchclaw-supervisor/responses/`。
-5. 流水线继续完成文献、假设、代码、实验、写作和审稿阶段。
+3. 主流程把阶段请求写入 `.researchclaw-supervisor/requests/`。
+4. Codex 和子智能体把结构化响应写回 `.researchclaw-supervisor/responses/`。
+5. 流水线继续完成规划、文献、实现、实验、写作与审稿阶段。
 
-`supervisor` 机制详见 [supervisor-mode_CN.md](supervisor-mode_CN.md)。
+传输机制详见 [supervisor-mode_CN.md](./supervisor-mode_CN.md)。
 
 ## 仓库结构
 
-- `researchclaw/`：核心流水线、LLM 集成、文献、实验和写作模块
-- `scripts/`：请求回包、响应校验和重复响应复用脚本
-- `tests/`：配置、健康检查、流水线和 supervisor 模式测试
-- `docs/`：面向公开使用者的说明文档
-- `config.only_codex.example.yaml`：给 Codex 用户的安全示例配置
+- `researchclaw/`：核心运行包，负责流水线、文献、实验和写作阶段
+- `scripts/`：请求交换、响应校验和响应复用脚本
+- `tests/`：配置、健康检查、执行流程与 supervisor 模式回归测试
+- `docs/`：面向公开用户的使用文档
+- `config.only_codex.example.yaml`：公开可用的起始配置
 
-## 内部命名说明
+## 兼容性说明
 
-为了兼容继承而来的代码，内部 Python 包名和 CLI 仍然叫 `researchclaw`。变化的是仓库名称和默认运行范式。
+对外推荐使用 `only-codex-research` 命令。内部 Python 包名仍保留为 `researchclaw`，用于兼容继承而来的代码结构。
 
-## 来源说明
+## 致谢与来源
 
-本项目基于 `AutoResearchClaw` 演化而来。这里强调的不是“换个名字”，而是把默认交互改造成“只登录 Codex，就能让 Codex 学习仓库、创建合适的子智能体，并把论文流程跑到底”。
+Only_Codex_Research 基于 `AutoResearchClaw` 的基础流水线继续扩展，重点在于将默认编排方式调整为 Codex 优先。

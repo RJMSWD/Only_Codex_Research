@@ -55,7 +55,7 @@ experiment:
 
 ## 典型使用方式
 
-1. 用 `llm.provider: "supervisor"` 的配置启动 `researchclaw run ...`。
+1. 用 `llm.provider: "supervisor"` 的配置启动 `only-codex-research run ...`。
    开箱即用起点配置是 `config.only_codex.example.yaml`。
 2. 查看 pending 请求：
 
