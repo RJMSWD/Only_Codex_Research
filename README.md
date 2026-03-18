@@ -9,7 +9,7 @@
 [![Supervisor Mode](https://img.shields.io/badge/Mode-Supervisor-orange)](./docs/supervisor-mode_CN.md)
 
 <p align="center">
-  <img src="./image/logo.png" alt="Only_Codex_Research Logo" width="280" />
+  <img src="./image/title-banner.png" alt="Only_Codex_Research Banner" width="100%" />
 </p>
 
 **🔥 登录你的 Codex，在合适环境下，几小时内把 idea 推进成完整可投稿论文。**
@@ -23,10 +23,6 @@
 - 基于 `AutoResearchClaw` 的成熟流水线继续演化，默认工作方式更适合公开用户直接使用
 - 默认使用文件系统 `supervisor` 模式，无需 ACP 作为主通道
 - 子智能体拓扑、职责和推理强度已经写入 [AGENTS.md](./AGENTS.md)
-
-## 流程架构
-
-![Framework](./image/framework.png)
 
 ## 快速开始
 

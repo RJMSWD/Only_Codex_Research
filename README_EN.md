@@ -9,7 +9,7 @@
 [![Supervisor Mode](https://img.shields.io/badge/Mode-Supervisor-orange)](./docs/supervisor-mode.md)
 
 <p align="center">
-  <img src="./image/logo.png" alt="Only_Codex_Research Logo" width="280" />
+  <img src="./image/title-banner.png" alt="Only_Codex_Research Banner" width="100%" />
 </p>
 
 **🔥 Sign in to Codex and push an idea toward a submission-ready paper within hours.**
@@ -23,10 +23,6 @@ Only_Codex_Research is a Codex-native research automation stack. It uses filesys
 - Built on top of the proven `AutoResearchClaw` pipeline foundations
 - `supervisor` mode by default, without ACP as the primary transport
 - Agent roles, responsibilities, and reasoning strength are documented in [AGENTS.md](./AGENTS.md)
-
-## Architecture
-
-![Framework](./image/framework.png)
 
 ## Quick Start
 
