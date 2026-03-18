@@ -1,0 +1,28 @@
+[project]
+name = "only-codex-research"
+version = "0.5.0"
+description = "Only_Codex_Research - Codex-first autonomous research pipeline derived from AutoResearchClaw."
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml>=6.0",
+    "rich>=13.0",
+]
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.scripts]
+researchclaw = "researchclaw.cli:main"
+only-codex-research = "researchclaw.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["researchclaw", "sibyl", "arc"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"researchclaw/templates/styles" = "researchclaw/templates/styles"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
