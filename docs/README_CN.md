@@ -1,5 +1,7 @@
 # Only_Codex_Research
 
+[English](../README.md) | 简体中文
+
 这是一个面向 Codex 的端到端自动科研仓库，目标是把“一个研究想法”推进成“可提交论文”。
 
 这个仓库脱胎于 `AutoResearchClaw`。核心流水线、阶段结构和执行框架继承自原项目，但默认使用方式已经改变：

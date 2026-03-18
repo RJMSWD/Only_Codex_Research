@@ -1,5 +1,7 @@
 # Only_Codex_Research
 
+English | [Chinese](./docs/README_CN.md)
+
 Codex-first autonomous research pipeline for turning an idea into a paper.
 
 This repository is derived from `AutoResearchClaw`. The core pipeline, stage structure, and execution framework come from that project. The key difference is operational:
